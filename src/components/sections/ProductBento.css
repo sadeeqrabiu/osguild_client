@@ -1,0 +1,116 @@
+.bento {
+  padding-bottom: var(--space-9);
+}
+
+.bento__row {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.bento__row--wide {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.bento__row--narrow {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: var(--space-4);
+}
+
+/* The Reveal wrapper is the grid item, so it has to stretch like one. */
+.bento__cell {
+  display: flex;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: 420px;
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-raised);
+  /* Performs the deliberate clipping of the auth and storage illustrations. */
+  overflow: hidden;
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+
+.product-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+}
+
+.product-card__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.product-card__icon {
+  width: 19px;
+  height: 19px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.product-card__copy {
+  max-width: 34ch;
+}
+
+.product-card__features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.product-card__features li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.product-card__features svg {
+  width: 15px;
+  height: 15px;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.bento__summary {
+  margin-top: var(--space-7);
+  font-size: clamp(1.125rem, 2.1vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: -0.035em;
+  color: var(--text-tertiary);
+}
+
+.bento__summary strong {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+@media (max-width: 1100px) {
+  .bento__row--wide,
+  .bento__row--narrow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .bento__row--wide,
+  .bento__row--narrow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .product-card {
+    min-height: 0;
+  }
+}

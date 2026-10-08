@@ -1,0 +1,27 @@
+/*
+ * Page-level layout only. Anything that belongs to a single section lives in
+ * that section's own stylesheet.
+ */
+
+/* Shared horizontal shell. Sections opt in rather than inherit it, because a
+   few of them intentionally run full-bleed. */
+.shell {
+  max-width: var(--shell-max);
+  margin: 0 auto;
+  padding: 0 var(--shell-pad);
+}
+
+.section {
+  padding: var(--space-9) 0;
+}
+
+/* Keeps an anchored section clear of the sticky header when jumped to. */
+section[id] {
+  scroll-margin-top: calc(var(--nav-height) + var(--space-4));
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--space-8) 0;
+  }
+}

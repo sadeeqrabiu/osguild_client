@@ -1,0 +1,67 @@
+.quickstart__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: start;
+  gap: var(--space-8);
+}
+
+.quickstart__name {
+  display: inline-block;
+  color: var(--text-primary);
+  animation: name-swap 420ms var(--ease-out);
+}
+
+@keyframes name-swap {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.quickstart__panel {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The strip sits flush on the panel, so only the panel rounds its lower corners. */
+.quickstart__tabs {
+  display: flex;
+  align-self: flex-start;
+  max-width: 100%;
+}
+
+.quickstart__body {
+  border: 1px solid var(--border);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) var(--radius-lg);
+  background: var(--bg-raised);
+  overflow: hidden;
+}
+
+.quickstart__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 var(--space-5) var(--space-5);
+}
+
+@media (max-width: 1024px) {
+  .quickstart__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 560px) {
+  .quickstart__tabs {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .quickstart__footer {
+    justify-content: stretch;
+    padding: 0 var(--space-4) var(--space-4);
+  }
+
+  .quickstart__footer > * {
+    width: 100%;
+  }
+}

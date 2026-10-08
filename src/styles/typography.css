@@ -1,0 +1,92 @@
+/*
+ * Source Code Pro carries the whole page, display sizes included.
+ *
+ * Monospace needs two corrections at display sizes that a proportional face does
+ * not: negative tracking (every glyph sits in a 0.6em box, so large text sprawls)
+ * and a tighter line-height (the wide advance already supplies optical leading).
+ */
+
+:root {
+  --font-mono: 'Source Code Pro', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Sized so "Build in a weekend" holds one line down to the point the hero
+     stacks. Monospace runs ~25% wider than a proportional face at equal size,
+     so these caps are lower than they look. */
+  --fs-display: clamp(2rem, 4.3vw, 3.75rem);
+  --fs-h2: clamp(1.5rem, 3.3vw, 2.875rem);
+  --fs-h3: clamp(1.125rem, 1.6vw, 1.3125rem);
+  --fs-lead: clamp(1rem, 1.3vw, 1.1875rem);
+  --fs-body: 0.9375rem;
+  --fs-sm: 0.875rem;
+  --fs-xs: 0.8125rem;
+  --fs-micro: 0.6875rem;
+
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.display {
+  font-size: var(--fs-display);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+  color: var(--text-primary);
+}
+
+/*
+ * The two-tone headline used by the hero, the dashboard section and the closing
+ * CTA: first line at full strength, second line dropped back.
+ */
+.display__muted {
+  color: var(--text-tertiary);
+}
+
+.heading-2 {
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: var(--text-primary);
+}
+
+.heading-3 {
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+}
+
+.body {
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Small all-caps label, used for section eyebrows and footer column headers. */
+.eyebrow {
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* Emphasis inside body copy — the original bolds key phrases mid-sentence. */
+.body strong,
+.lead strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}

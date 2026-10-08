@@ -1,0 +1,223 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    backdrop-filter var(--dur-base) var(--ease-out);
+}
+
+/* The bar is invisible over the hero and only materialises once the page moves. */
+.navbar[data-scrolled] {
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--border);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-7);
+  max-width: var(--shell-max);
+  height: var(--nav-height);
+  margin: 0 auto;
+  padding: 0 var(--shell-pad);
+}
+
+/* Brand ------------------------------------------------------------------- */
+
+.navbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+
+.navbar__logo {
+  width: 22px;
+  height: 22px;
+  transition: transform var(--dur-base) var(--ease-spring);
+}
+
+.navbar__brand:hover .navbar__logo {
+  transform: rotate(-12deg) scale(1.1);
+}
+
+/* Primary links ----------------------------------------------------------- */
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.navbar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 0;
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.navbar__link:hover {
+  color: var(--text-primary);
+}
+
+.navbar__chevron {
+  width: 13px;
+  height: 13px;
+  color: var(--text-tertiary);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.navbar__link:hover .navbar__chevron {
+  transform: translateY(2px);
+}
+
+/* Actions ----------------------------------------------------------------- */
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-left: auto;
+}
+
+.navbar__stars {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.navbar__stars:hover {
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.navbar__stars-mark {
+  width: 16px;
+  height: 16px;
+}
+
+/* Mobile ------------------------------------------------------------------ */
+
+.navbar__menu-button {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+}
+
+.navbar__menu-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.navbar__drawer {
+  display: none;
+}
+
+.navbar__drawer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--shell-pad) var(--space-7);
+}
+
+.navbar__drawer-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar__drawer-link {
+  display: block;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 1.0625rem;
+  color: var(--text-primary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.navbar__drawer-link:hover {
+  color: var(--text-secondary);
+}
+
+.navbar__drawer-actions {
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (max-width: 1080px) {
+  .navbar__nav,
+  .navbar__sign-in,
+  .navbar__stars {
+    display: none;
+  }
+
+  .navbar__inner {
+    gap: var(--space-4);
+  }
+
+  .navbar__actions {
+    gap: var(--space-2);
+  }
+
+  .navbar__menu-button {
+    display: inline-flex;
+    margin-left: 0;
+  }
+
+  /*
+   * Collapsed with the 0fr -> 1fr grid trick rather than a guessed max-height,
+   * so the drawer animates to whatever height its contents actually need. It
+   * requires exactly one child, which is what .navbar__drawer-inner is for.
+   */
+  .navbar__drawer {
+    display: grid;
+    grid-template-rows: 0fr;
+    background: var(--bg);
+    border-top: 1px solid transparent;
+    opacity: 0;
+    transition:
+      grid-template-rows var(--dur-base) var(--ease-out),
+      opacity var(--dur-base) var(--ease-out),
+      border-color var(--dur-base) var(--ease-out);
+  }
+
+  .navbar__drawer-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .navbar__drawer[data-open] {
+    grid-template-rows: 1fr;
+    border-top-color: var(--border);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar__cta {
+    display: none;
+  }
+}

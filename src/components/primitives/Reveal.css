@@ -1,0 +1,24 @@
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--dur-slow) var(--ease-out) var(--reveal-delay, 0ms),
+    transform var(--dur-slow) var(--ease-out) var(--reveal-delay, 0ms);
+}
+
+.reveal[data-visible] {
+  opacity: 1;
+  transform: none;
+}
+
+/*
+ * useReveal resolves to visible immediately when motion is reduced, but the
+ * starting styles above would still apply for a frame. Neutralising them here
+ * keeps that frame from flashing.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

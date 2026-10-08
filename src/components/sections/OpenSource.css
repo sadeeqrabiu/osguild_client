@@ -1,0 +1,31 @@
+.open-source__inner {
+  display: grid;
+  /* The copy column has to clear "Open source from day one" on one line. */
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.open-source__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.open-source__body {
+  max-width: 48ch;
+}
+
+.open-source__count {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .open-source__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-7);
+  }
+}

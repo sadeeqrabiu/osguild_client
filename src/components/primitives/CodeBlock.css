@@ -1,0 +1,86 @@
+.code-block {
+  position: relative;
+}
+
+.code-block__pre {
+  margin: 0;
+  padding: var(--space-6);
+  overflow-x: auto;
+  font-size: var(--fs-sm);
+  line-height: 1.75;
+  color: var(--code-plain);
+  tab-size: 2;
+}
+
+.code-block__pre code {
+  font: inherit;
+}
+
+/* Token colours. Comments and numbers reuse ramp values rather than add tokens. */
+.tok--keyword {
+  color: var(--code-keyword);
+  font-weight: 600;
+}
+.tok--string {
+  color: var(--code-string);
+}
+.tok--fn {
+  color: var(--code-fn);
+  font-weight: 500;
+}
+.tok--number {
+  color: var(--code-fn);
+}
+.tok--punct {
+  color: var(--code-punct);
+}
+.tok--comment {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+.code-block__copy {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-raised);
+  color: var(--text-secondary);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.code-block__copy svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* Hidden at rest so the sample reads clean; revealed on hover or keyboard focus. */
+.code-block:hover .code-block__copy,
+.code-block:focus-within .code-block__copy {
+  opacity: 1;
+  transform: none;
+}
+
+.code-block__copy:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+@media (max-width: 560px) {
+  .code-block__pre {
+    padding: var(--space-5) var(--space-4);
+    font-size: var(--fs-xs);
+  }
+}

@@ -1,0 +1,37 @@
+.dot-matrix {
+  --dot-size: clamp(3px, 0.62vw, 9px);
+  --dot-gap: clamp(2px, 0.35vw, 5px);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--dot-gap);
+  width: max-content;
+}
+
+.dot-matrix__row {
+  display: flex;
+  gap: var(--dot-gap);
+}
+
+.dot-matrix__dot {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+  background: var(--border-strong);
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-spring);
+}
+
+.dot-matrix[data-visible] .dot-matrix__dot {
+  opacity: 0.45;
+  transform: none;
+  transition-delay: var(--dot-delay, 0ms);
+}
+
+.dot-matrix[data-visible] .dot-matrix__dot[data-on] {
+  opacity: 1;
+  background: var(--accent);
+}

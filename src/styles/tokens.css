@@ -1,0 +1,119 @@
+/*
+ * Design tokens.
+ *
+ * The palette is deliberately monochrome: where the original design uses a green
+ * accent, this build uses pure white (dark theme) or near-black (light theme).
+ * Every surface, line and text colour resolves through these variables, so the
+ * two themes differ by this block alone.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces, from furthest back to closest to the reader. */
+  --bg: #0b0b0b;
+  --bg-inset: #070707;
+  --bg-band: #0f0f0f;
+  --bg-raised: #111111;
+  --bg-overlay: #171717;
+
+  /* Hairlines. --border is the default; --border-strong marks active state. */
+  --border: #1f1f1f;
+  --border-strong: #333333;
+
+  /* Text ramp. Tertiary is decorative only and is not expected to meet AA. */
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1a1;
+  --text-tertiary: #6b6b6b;
+
+  /* Monochrome accent. --accent-fg is the only colour legible on --accent. */
+  --accent: #ffffff;
+  --accent-fg: #0b0b0b;
+  --accent-hover: #e2e2e2;
+  --accent-muted: rgb(255 255 255 / 0.07);
+  --accent-ring: rgb(255 255 255 / 0.4);
+
+  /* Code sample token colours, kept monochrome apart from the comment grey. */
+  --code-plain: #d4d4d4;
+  --code-keyword: #fafafa;
+  --code-string: #a1a1a1;
+  --code-fn: #ededed;
+  --code-punct: #6b6b6b;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.5), 0 10px 30px -18px rgb(0 0 0 / 0.9);
+  --shadow-lift: 0 2px 6px rgb(0 0 0 / 0.5), 0 24px 56px -24px rgb(0 0 0 / 1);
+  --shadow-pop: 0 12px 40px -8px rgb(0 0 0 / 0.7);
+
+  /* Scrim used by the bento cards and testimonial wall to fade content at an edge. */
+  --fade-to: #0b0b0b;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --bg-inset: #f2f2f2;
+  --bg-band: #f7f7f7;
+  --bg-raised: #fbfbfb;
+  --bg-overlay: #f4f4f4;
+
+  --border: #e7e7e7;
+  --border-strong: #c9c9c9;
+
+  --text-primary: #0a0a0a;
+  --text-secondary: #585858;
+  --text-tertiary: #8f8f8f;
+
+  --accent: #0a0a0a;
+  --accent-fg: #ffffff;
+  --accent-hover: #262626;
+  --accent-muted: rgb(0 0 0 / 0.05);
+  --accent-ring: rgb(0 0 0 / 0.35);
+
+  --code-plain: #2e2e2e;
+  --code-keyword: #0a0a0a;
+  --code-string: #585858;
+  --code-fn: #1f1f1f;
+  --code-punct: #8f8f8f;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 10px 30px -18px rgb(0 0 0 / 0.2);
+  --shadow-lift: 0 2px 6px rgb(0 0 0 / 0.06), 0 24px 56px -24px rgb(0 0 0 / 0.26);
+  --shadow-pop: 0 12px 40px -8px rgb(0 0 0 / 0.18);
+
+  --fade-to: #ffffff;
+}
+
+:root {
+  /* Spacing scale. Every gap and pad on the page comes from here. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* Corner radii. Nested surfaces step down one rung so the curves stay concentric. */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  /* Motion. --ease-out is the house curve; --ease-spring is for anything that pops. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 140ms;
+  --dur-base: 260ms;
+  --dur-slow: 620ms;
+
+  /* Page shell. --shell-pad doubles as the mobile gutter. */
+  --shell-max: 1440px;
+  --shell-pad: clamp(20px, 4vw, 48px);
+  --nav-height: 64px;
+}

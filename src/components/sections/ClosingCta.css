@@ -1,0 +1,83 @@
+.closing__pitch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  text-align: center;
+}
+
+/* Holds one line on desktop, as in the original, and wraps naturally below that. */
+.closing__headline {
+  text-wrap: balance;
+}
+
+.closing__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.closing__trust {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin-top: var(--space-9);
+  padding-bottom: var(--space-7);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-sm);
+  color: var(--text-tertiary);
+}
+
+.closing__trust-lead {
+  color: var(--text-secondary);
+}
+
+.closing__trust-link {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.closing__certs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+}
+
+.closing__certs li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.closing__certs svg {
+  width: 15px;
+  height: 15px;
+  color: var(--text-secondary);
+}
+
+.closing__certs strong {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+@media (max-width: 860px) {
+  .closing__trust {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: var(--space-8);
+  }
+
+  .closing__certs {
+    gap: var(--space-3) var(--space-5);
+  }
+}
+
+@media (max-width: 560px) {
+  .closing__actions > * {
+    flex: 1 1 100%;
+  }
+}
