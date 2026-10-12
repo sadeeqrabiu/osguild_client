@@ -1,8 +1,8 @@
 # osguild_client
 
-A rebuild of the supabase.com homepage in React + Vite, as a front-end exercise.
+A rebuild of the [OsGuild](https://osguild.xyz) homepage in React + Vite, as a front-end exercise.
 
-> **Local only.** The page carries Supabase's own copy and branding, so it is a
+> **Local only.** The page carries OsGuild's own copy and branding, so it is a
 > clone for study and review — not something to deploy or publish anywhere public.
 
 ## What differs from the original, on purpose
