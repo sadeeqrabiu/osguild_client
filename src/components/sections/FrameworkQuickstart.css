@@ -1,67 +1,146 @@
 .quickstart__inner {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  align-items: start;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
   gap: var(--space-8);
 }
 
-.quickstart__name {
-  display: inline-block;
-  color: var(--text-primary);
-  animation: name-swap 420ms var(--ease-out);
-}
-
-@keyframes name-swap {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-}
-
-.quickstart__panel {
+.quickstart__copy {
   display: flex;
   flex-direction: column;
 }
 
-/* The strip sits flush on the panel, so only the panel rounds its lower corners. */
-.quickstart__tabs {
-  display: flex;
-  align-self: flex-start;
-  max-width: 100%;
+.quickstart__headline {
+  margin-bottom: var(--space-5);
 }
 
-.quickstart__body {
-  border: 1px solid var(--border);
-  border-radius: 0 var(--radius-lg) var(--radius-lg) var(--radius-lg);
-  background: var(--bg-raised);
-  overflow: hidden;
+.quickstart__lead {
+  max-width: 48ch;
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--text-secondary);
 }
 
-.quickstart__footer {
+/* Map Display --------------------------------------------------------------- */
+
+.quickstart__visual {
   display: flex;
-  justify-content: flex-end;
-  padding: 0 var(--space-5) var(--space-5);
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
+
+.quickstart__map-svg {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+/* Continent Dots */
+.quickstart__continent-dot {
+  fill: #303030;
+  transition: fill var(--dur-base) var(--ease-out);
+}
+
+[data-theme='light'] .quickstart__continent-dot {
+  fill: #cfcfcf;
+}
+
+/* Blinking Beacon Markers --------------------------------------------------- */
+
+.quickstart__hub-marker {
+  transform-origin: center;
+}
+
+.quickstart__beacon-ripple {
+  stroke: #4ade80;
+  stroke-width: 1.5;
+  fill: none;
+  animation: beacon-ripple 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  transform-origin: center;
+}
+
+.quickstart__beacon-ripple--delayed {
+  stroke-width: 1;
+}
+
+.quickstart__beacon-aura {
+  animation: beacon-aura-pulse 2.2s ease-in-out infinite;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.quickstart__beacon-core {
+  fill: #4ade80;
+  animation: beacon-blink 2.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.quickstart__beacon-center {
+  fill: #ffffff;
+  pointer-events: none;
+}
+
+/* Keyframes ----------------------------------------------------------------- */
+
+@keyframes beacon-blink {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.95));
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+    filter: drop-shadow(0 0 3px rgba(74, 222, 128, 0.3));
+  }
+}
+
+@keyframes beacon-ripple {
+  0% {
+    r: 6px;
+    opacity: 0.95;
+  }
+  100% {
+    r: 26px;
+    opacity: 0;
+  }
+}
+
+@keyframes beacon-aura-pulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(0.8);
+  }
+}
+
+/* Responsive ---------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
   .quickstart__inner {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-6);
+    gap: var(--space-7);
+  }
+
+  .quickstart__lead {
+    max-width: none;
+  }
+
+  .quickstart__map-svg {
+    max-width: 460px;
   }
 }
 
-@media (max-width: 560px) {
-  .quickstart__tabs {
-    width: 100%;
-    overflow-x: auto;
-  }
-
-  .quickstart__footer {
-    justify-content: stretch;
-    padding: 0 var(--space-4) var(--space-4);
-  }
-
-  .quickstart__footer > * {
-    width: 100%;
+@media (prefers-reduced-motion: reduce) {
+  .quickstart__beacon-core,
+  .quickstart__beacon-ripple,
+  .quickstart__beacon-aura {
+    animation: none !important;
   }
 }

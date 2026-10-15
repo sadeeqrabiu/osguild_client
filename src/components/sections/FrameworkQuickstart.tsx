@@ -1,71 +1,152 @@
-import { useId, useState } from 'react'
-import { FRAMEWORKS } from '../../data/frameworks'
-import { ArrowUpRight } from '../icons'
-import { ButtonLink } from '../primitives/Button'
-import { CodeBlock } from '../primitives/CodeBlock'
 import { Reveal } from '../primitives/Reveal'
-import { TabPanel, Tabs, type TabItem } from '../primitives/Tabs'
+import { AFRICA_DOTS } from '../../data/africaDots'
 import './FrameworkQuickstart.css'
 
-/*
- * The tab strip is icon-only, as in the original. Each tab carries its framework
- * name as an accessible name so the control is still usable without recognising
- * the logo.
- */
-const TABS: TabItem[] = FRAMEWORKS.map((framework) => {
-  const Mark = framework.mark
+interface Hub {
+  id: string
+  name: string
+  cx: number
+  cy: number
+  delay: string
+}
 
-  return {
-    id: framework.id,
-    label: <Mark />,
-    accessibleName: framework.name,
-  }
-})
+const STEP = 13.5
+const OFFSET_X = 22
+const OFFSET_Y = 22
+
+const HUBS: Hub[] = [
+  {
+    id: 'seychelles',
+    name: 'Seychelles',
+    cx: 43 * STEP + OFFSET_X,
+    cy: 25 * STEP + OFFSET_Y,
+    delay: '0s',
+  },
+  {
+    id: 'madagascar',
+    name: 'Madagascar',
+    cx: 38 * STEP + OFFSET_X,
+    cy: 33 * STEP + OFFSET_Y,
+    delay: '0.7s',
+  },
+  {
+    id: 'mauritius',
+    name: 'Mauritius',
+    cx: 44 * STEP + OFFSET_X,
+    cy: 34 * STEP + OFFSET_Y,
+    delay: '1.4s',
+  },
+]
 
 export function FrameworkQuickstart() {
-  const baseId = useId()
-  const [activeId, setActiveId] = useState(FRAMEWORKS[0].id)
-  const active = FRAMEWORKS.find((framework) => framework.id === activeId) ?? FRAMEWORKS[0]
-
   return (
-    <section className="quickstart section" id="quickstart">
+    <section className="quickstart section" id="mission">
       <div className="shell quickstart__inner">
-        <Reveal>
-          <h2 className="heading-2 quickstart__headline">
-            <span className="display__muted">Use Supabase with</span>
-            <br />
-            {/* Keyed on the framework so the name re-animates on every switch. */}
-            <span className="quickstart__name" key={active.id}>
-              {active.name}
-            </span>
-          </h2>
-        </Reveal>
+        {/* Left Column: Mission statement */}
+        <div className="quickstart__copy">
+          <Reveal>
+            <h2 className="heading-2 quickstart__headline">
+              <span className="display__muted">Targeting</span>
+              <br />
+              <span>Insular East Africa</span>
+            </h2>
 
-        <Reveal delay={80} className="quickstart__panel">
-          <Tabs
-            className="quickstart__tabs"
-            variant="icon"
-            items={TABS}
-            activeId={activeId}
-            onChange={setActiveId}
-            label="Framework"
-            baseId={baseId}
-          />
+            <p className="lead quickstart__lead">
+              We believe talent is everywhere, but opportunities are not. OSGuild aims to empower
+              developers across Insular East Africa to participate in global open-source projects,
+              build valuable skills, and create sustainable careers in FOSS.
+            </p>
+          </Reveal>
+        </div>
 
-          <TabPanel baseId={baseId} tabId={activeId} className="quickstart__body">
-            <CodeBlock code={active.code} />
+        {/* Right Column: Dot Matrix Map of Africa */}
+        <Reveal delay={120} className="quickstart__visual">
+          <svg
+            viewBox="0 0 650 620"
+            className="quickstart__map-svg"
+            role="img"
+            aria-label="Dotted matrix map of Africa highlighting Mauritius, Madagascar, and Seychelles in Insular East Africa"
+          >
+            <defs>
+              {/* Neon Glow Filter */}
+              <filter id="hub-glow" x="-80%" y="-80%" width="260%" height="260%">
+                <feGaussianBlur stdDeviation="4.5" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <radialGradient id="beacon-aura" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#4ade80" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#22c55e" stopOpacity="0.35" />
+                <stop offset="100%" stopColor="#16a34a" stopOpacity="0" />
+              </radialGradient>
+            </defs>
 
-            <div className="quickstart__footer">
-              <ButtonLink
-                variant="secondary"
-                size="sm"
-                href={active.docsHref}
-                trailing={<ArrowUpRight />}
-              >
-                Read docs for {active.name}
-              </ButtonLink>
-            </div>
-          </TabPanel>
+            {/* Base Africa continent dots */}
+            <g className="quickstart__africa-dots">
+              {AFRICA_DOTS.map(([col, row]) => (
+                <circle
+                  key={`${col}-${row}`}
+                  cx={col * STEP + OFFSET_X}
+                  cy={row * STEP + OFFSET_Y}
+                  r="2.3"
+                  className="quickstart__continent-dot"
+                />
+              ))}
+            </g>
+
+            {/* Insular East Africa Blinking Beacons */}
+            {HUBS.map((hub) => (
+              <g key={hub.id} className="quickstart__hub-marker" aria-label={hub.name}>
+                {/* Outer pulse ripple wave 1 */}
+                <circle
+                  cx={hub.cx}
+                  cy={hub.cy}
+                  r="6"
+                  className="quickstart__beacon-ripple"
+                  style={{ animationDelay: hub.delay }}
+                />
+
+                {/* Outer pulse ripple wave 2 */}
+                <circle
+                  cx={hub.cx}
+                  cy={hub.cy}
+                  r="6"
+                  className="quickstart__beacon-ripple quickstart__beacon-ripple--delayed"
+                  style={{ animationDelay: `calc(${hub.delay} + 0.8s)` }}
+                />
+
+                {/* Luminous Aura Gradient Disc */}
+                <circle
+                  cx={hub.cx}
+                  cy={hub.cy}
+                  r="14"
+                  fill="url(#beacon-aura)"
+                  className="quickstart__beacon-aura"
+                  style={{ animationDelay: hub.delay }}
+                />
+
+                {/* Glowing core dot */}
+                <circle
+                  cx={hub.cx}
+                  cy={hub.cy}
+                  r="5.5"
+                  filter="url(#hub-glow)"
+                  className="quickstart__beacon-core"
+                  style={{ animationDelay: hub.delay }}
+                />
+
+                {/* Bright specular center */}
+                <circle
+                  cx={hub.cx}
+                  cy={hub.cy}
+                  r="2"
+                  className="quickstart__beacon-center"
+                />
+              </g>
+            ))}
+          </svg>
         </Reveal>
       </div>
     </section>

@@ -41,7 +41,7 @@ export function DashboardShowcase() {
       <div className="shell">
         <Reveal>
           <h2 className="heading-2 dashboard__headline">
-            Experience our in-person cohorts
+            Experience our in-person FOSS Workshops
             <br />
             <span className="display__muted">learning, building, and contributing together</span>
           </h2>

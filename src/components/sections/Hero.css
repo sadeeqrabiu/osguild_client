@@ -24,8 +24,26 @@
 
 .hero__actions {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  gap: var(--space-3);
+  gap: var(--space-4);
+}
+
+.hero__avatar-group {
+  display: inline-flex;
+  align-items: center;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.hero__avatar-group:hover {
+  transform: translateY(-2px);
+}
+
+.hero__avatar-group-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 /*
@@ -90,7 +108,12 @@
 }
 
 @media (max-width: 560px) {
-  .hero__actions > * {
-    flex: 1 1 100%;
+  .hero__actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero__actions > .btn {
+    width: 100%;
   }
 }

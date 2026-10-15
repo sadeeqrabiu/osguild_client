@@ -1,4 +1,5 @@
 import { ButtonLink } from '../primitives/Button'
+import avatarGroup from '../../assets/avatar-group.png'
 import './Hero.css'
 
 export function Hero() {
@@ -13,7 +14,13 @@ export function Hero() {
           </h1>
 
           <div className="hero__actions">
-            <ButtonLink href="#start">Start your project</ButtonLink>
+            <div className="hero__avatar-group">
+              <img
+                src={avatarGroup}
+                alt="Community builders"
+                className="hero__avatar-group-img"
+              />
+            </div>
             <ButtonLink variant="secondary" href="#demo">
               Request a demo
             </ButtonLink>
