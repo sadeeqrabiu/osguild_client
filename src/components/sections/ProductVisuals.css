@@ -1,10 +1,8 @@
 /*
  * Styles for the bento card illustrations.
  *
- * Several of these deliberately overflow their card: the Authentication grid is
- * wider than the card on both sides, and the Storage grid runs off the right
- * edge. That clipping is how the original reads, and `overflow: hidden` on the
- * card is what performs the cut.
+ * Each card carries exactly one single, clean, abstract illustration.
+ * Built with pure markup and SVG, matching the Supabase aesthetic.
  */
 
 .visual {
@@ -15,9 +13,9 @@
   color: var(--text-tertiary);
 }
 
-/* Database ---------------------------------------------------------------- */
+/* 1. Frontier Models (Postgres Stacked Frames) ---------------------------- */
 
-.visual--database {
+.visual--frontier {
   align-items: center;
   justify-content: center;
   min-height: 210px;
@@ -52,54 +50,15 @@
   transform: rotate(-9deg) scale(1.015);
 }
 
-.visual__elephant {
-  width: 88px;
-  height: 88px;
-  opacity: 0.8;
+.visual__mark {
+  width: 90px;
+  height: 90px;
+  opacity: 0.85;
 }
 
-/* Authentication ---------------------------------------------------------- */
+/* 2. MCP Codebase Guide (Edge Functions Globe) ---------------------------- */
 
-.visual--auth {
-  align-items: flex-end;
-  min-height: 210px;
-}
-
-.auth-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  /* Overshoots the card on both sides so the addresses are cut off mid-token. */
-  width: calc(100% + 84px);
-  margin: 0 -42px;
-}
-
-.auth-grid__cell {
-  display: flex;
-  align-items: center;
-  height: 58px;
-  padding: 0 18px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  background: var(--bg-overlay);
-  font-size: var(--fs-xs);
-  color: var(--text-tertiary);
-  white-space: nowrap;
-}
-
-/* Redacted rows: a blurred bar standing in for an address. */
-.auth-grid__cell--masked::after {
-  content: '';
-  width: 62%;
-  height: 9px;
-  border-radius: var(--radius-pill);
-  background: var(--border-strong);
-  filter: blur(3px);
-}
-
-/* Edge Functions ---------------------------------------------------------- */
-
-.visual--functions {
+.visual--mcp {
   flex-direction: column;
   align-items: center;
   gap: var(--space-4);
@@ -131,7 +90,6 @@
   opacity: 0.85;
 }
 
-/* Nodes breathe in sequence to suggest functions coming online. */
 .visual__globe circle[r='3.5'],
 .visual__globe circle[r='2.5'] {
   animation: node-pulse 2.8s var(--ease-in-out) infinite;
@@ -157,47 +115,129 @@
   }
 }
 
-/* Storage ----------------------------------------------------------------- */
+/* 3. Six-Week Pathway (Vector Isometric Cube) ------------------------------ */
 
-.visual--storage {
-  align-items: flex-end;
+.visual--pathway {
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-4);
   min-height: 210px;
-  overflow: hidden;
 }
 
-.storage-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 74px);
-  gap: 12px;
-  width: max-content;
+.visual__cube {
+  width: 100%;
+  max-width: 230px;
+  margin: 0 auto;
+  opacity: 0.9;
 }
 
-.storage-grid__tile {
-  display: grid;
-  place-items: center;
-  width: 74px;
-  height: 74px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  background: var(--bg-overlay);
-  transition:
-    border-color var(--dur-base) var(--ease-out),
-    color var(--dur-base) var(--ease-out);
+.visual__cube circle {
+  animation: node-pulse 3.4s var(--ease-in-out) infinite;
 }
 
-.storage-grid__tile svg {
-  width: 22px;
-  height: 22px;
+.visual__cube circle:nth-of-type(even) {
+  animation-delay: 0.7s;
 }
 
-.product-card:hover .storage-grid__tile {
-  border-color: var(--border-strong);
+.vector__providers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--fs-xs);
   color: var(--text-secondary);
 }
 
-/* Realtime ---------------------------------------------------------------- */
+.vector__providers li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
 
-.visual--realtime {
+.vector__dot {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  background: var(--bg-overlay);
+}
+
+/* 4. Fork Simulation Environment (Blueprint Grid + Branch Tree) ----------- */
+
+.visual--fork {
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 210px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+}
+
+.visual--fork::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.visual__fork-tree {
+  position: relative;
+  width: 100%;
+  max-width: 240px;
+  margin: auto 0;
+  opacity: 0.85;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.product-card:hover .visual__fork-tree {
+  transform: scale(1.02);
+}
+
+/* 5. Open-Source Culture & Norms (Authentication Token Grid) -------------- */
+
+.visual--culture {
+  align-items: flex-end;
+  min-height: 210px;
+}
+
+.auth-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  /* Overshoots the card on both sides so the tokens are cut off mid-token. */
+  width: calc(100% + 84px);
+  margin: 0 -42px;
+}
+
+.auth-grid__cell {
+  display: flex;
+  align-items: center;
+  height: 58px;
+  padding: 0 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-overlay);
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+.auth-grid__cell--masked::after {
+  content: '';
+  width: 62%;
+  height: 9px;
+  border-radius: var(--radius-pill);
+  background: var(--border-strong);
+  filter: blur(3px);
+}
+
+/* 6. Mentorship & Code Review (Realtime Blueprint + Cursors) --------------- */
+
+.visual--mentorship {
   align-items: center;
   justify-content: center;
   min-height: 210px;
@@ -205,9 +245,7 @@
   overflow: hidden;
 }
 
-/* Grid paper behind the cursors, kept on a pseudo-element so the opacity
-   does not also dim the cursors drawn on top of it. */
-.visual--realtime::before {
+.visual--mentorship::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -296,55 +334,9 @@
   }
 }
 
-/* Vector ------------------------------------------------------------------ */
+/* 7. Real-World Contribution Pathway (Data APIs Wire & Endpoints) ---------- */
 
-.visual--vector {
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--space-4);
-  min-height: 210px;
-}
-
-.visual__cube {
-  width: 100%;
-  max-width: 230px;
-  margin: 0 auto;
-  opacity: 0.9;
-}
-
-.visual__cube circle {
-  animation: node-pulse 3.4s var(--ease-in-out) infinite;
-}
-
-.visual__cube circle:nth-of-type(even) {
-  animation-delay: 0.7s;
-}
-
-.vector__providers {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  font-size: var(--fs-xs);
-  color: var(--text-secondary);
-}
-
-.vector__providers li {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.vector__dot {
-  width: 18px;
-  height: 18px;
-  border: 1px solid var(--border-strong);
-  border-radius: 50%;
-  background: var(--bg-overlay);
-}
-
-/* Data APIs --------------------------------------------------------------- */
-
-.visual--data-api {
+.visual--real-world {
   align-items: center;
   min-height: 210px;
 }
@@ -391,7 +383,6 @@
   height: 12px;
 }
 
-/* Dashed connector between a table and its generated endpoint. */
 .data-api__wire {
   height: 1px;
   background-image: linear-gradient(90deg, var(--border-strong) 50%, transparent 50%);
@@ -399,15 +390,6 @@
 }
 
 @media (max-width: 560px) {
-  .storage-grid {
-    grid-template-columns: repeat(5, 60px);
-  }
-
-  .storage-grid__tile {
-    width: 60px;
-    height: 60px;
-  }
-
   .auth-grid {
     width: calc(100% + 48px);
     margin: 0 -24px;

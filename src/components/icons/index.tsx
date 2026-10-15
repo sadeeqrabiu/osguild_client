@@ -123,6 +123,84 @@ export function MoonIcon(props: IconProps) {
 
 /* ------------------------------------------------------- Product card icons */
 
+export function FrontierModelIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <rect x="4" y="4" width="16" height="16" rx="3" />
+      <circle cx="9" cy="9" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="15" cy="9" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="15" r="1.5" fill="currentColor" stroke="none" />
+      <path d="M9 9l3 6 3-6" />
+      <path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3" />
+    </Glyph>
+  )
+}
+
+export function McpGuideIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+    </Glyph>
+  )
+}
+
+export function PathwayIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <circle cx="5" cy="6" r="2.5" />
+      <circle cx="19" cy="12" r="2.5" />
+      <circle cx="7" cy="18" r="2.5" />
+      <path d="M7.5 6h5a3 3 0 0 1 3 3v0a3 3 0 0 0 3 3" />
+      <path d="M16.5 12h-3a3 3 0 0 0-3 3v0a3 3 0 0 1-3 3" />
+    </Glyph>
+  )
+}
+
+export function ForkSimulationIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <circle cx="6" cy="18" r="2.5" />
+      <circle cx="6" cy="6" r="2.5" />
+      <circle cx="18" cy="6" r="2.5" />
+      <path d="M6 8.5v7" />
+      <path d="M18 8.5v1.5a4 4 0 0 1-4 4H6" />
+    </Glyph>
+  )
+}
+
+export function CultureNormsIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="m9 12 2 2 4-4" />
+    </Glyph>
+  )
+}
+
+export function MentorshipIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      <path d="m9 9-2 2 2 2M15 9l2 2-2 2" />
+    </Glyph>
+  )
+}
+
+export function RealWorldIcon(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <circle cx="6" cy="6" r="2.5" />
+      <circle cx="6" cy="18" r="2.5" />
+      <path d="M6 8.5v7" />
+      <circle cx="18" cy="18" r="2.5" />
+      <path d="M6 12a6 6 0 0 1 6-6h2" />
+      <path d="m15 3 3 3-3 3" />
+      <path d="M18 15.5V11" />
+    </Glyph>
+  )
+}
+
 export function DatabaseIcon(props: IconProps) {
   return (
     <Glyph {...props}>

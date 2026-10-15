@@ -8,6 +8,7 @@ type RevealProps = {
   /** Milliseconds to hold back the transition, for staggering a row of siblings. */
   delay?: number
   className?: string
+  style?: CSSProperties
 }
 
 /**
@@ -17,7 +18,7 @@ type RevealProps = {
  * transform — so when used inside a grid, pass the grid-placement class here
  * rather than to the child.
  */
-export function Reveal({ children, delay = 0, className }: RevealProps) {
+export function Reveal({ children, delay = 0, className, style }: RevealProps) {
   const { ref, isVisible } = useReveal<HTMLDivElement>()
 
   return (
@@ -26,7 +27,7 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
       className={cn('reveal', className)}
       data-visible={isVisible || undefined}
       // csstype has no index signature for custom properties, hence the cast.
-      style={{ '--reveal-delay': `${delay}ms` } as CSSProperties}
+      style={{ '--reveal-delay': `${delay}ms`, ...style } as CSSProperties}
     >
       {children}
     </div>

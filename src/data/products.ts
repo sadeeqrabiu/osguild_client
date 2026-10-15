@@ -2,24 +2,24 @@ import type { ComponentType } from 'react'
 import type { CopySegment } from './copy'
 import type { IconProps } from '../components/icons'
 import {
-  AuthIcon,
-  DataApiIcon,
-  DatabaseIcon,
-  FunctionsIcon,
-  RealtimeIcon,
-  StorageIcon,
-  VectorIcon,
+  CultureNormsIcon,
+  ForkSimulationIcon,
+  FrontierModelIcon,
+  McpGuideIcon,
+  MentorshipIcon,
+  PathwayIcon,
+  RealWorldIcon,
 } from '../components/icons'
 
-/** Picks which illustration ProductBento draws inside the card. */
+/** Picks which minimalist illustration ProductBento draws inside the card. */
 export type ProductVisual =
-  | 'database'
-  | 'auth'
-  | 'functions'
-  | 'storage'
-  | 'realtime'
-  | 'vector'
-  | 'dataApi'
+  | 'frontierModels'
+  | 'mcpGuide'
+  | 'pathway'
+  | 'forkSimulation'
+  | 'cultureNorms'
+  | 'mentorshipReview'
+  | 'realWorld'
 
 export type Product = {
   id: string
@@ -28,121 +28,120 @@ export type Product = {
   description: CopySegment[]
   visual: ProductVisual
   href: string
-  /** Only the Postgres card carries a checklist in the original. */
+  /** Only the primary anchor card carries a checklist, matching the original. */
   features?: string[]
 }
 
 /**
- * Card order matters: the first three fill the wide row, the remaining four fill
- * the narrow row below it. ProductBento slices this array rather than keeping two
- * separate lists.
+ * 7 Core Features of OSGuild:
+ * - Row 1 (Wide): Frontier Model Access, MCP Codebase Guide, Six-Week Contributor Pathway
+ * - Row 2 (Narrow): Fork Simulation Environment, Open-Source Culture & Norms, Mentorship & Code Review, Real-World Contribution Pathway
  */
 export const PRODUCTS: Product[] = [
   {
-    id: 'database',
-    title: 'Postgres Database',
-    icon: DatabaseIcon,
-    visual: 'database',
-    href: '#database',
+    id: 'frontier-models',
+    title: 'Frontier Model Access',
+    icon: FrontierModelIcon,
+    visual: 'frontierModels',
+    href: '#frontier-models',
     description: [
-      { text: 'Every project is ' },
-      { text: 'a full Postgres database', strong: true },
-      { text: ", the world's most trusted relational database." },
+      { text: 'Access ' },
+      { text: 'powerful coding models', strong: true },
+      { text: ' to learn faster, understand code, and build with confidence.' },
     ],
-    features: ['100% portable', 'Built-in Auth with RLS', 'Easy to extend'],
+    features: ['Top-tier coding models', 'Codebase-aware reasoning', 'Confidence-building pairing'],
   },
   {
-    id: 'auth',
-    title: 'Authentication',
-    icon: AuthIcon,
-    visual: 'auth',
-    href: '#auth',
+    id: 'mcp-guide',
+    title: 'MCP Codebase Guide',
+    icon: McpGuideIcon,
+    visual: 'mcpGuide',
+    href: '#mcp-guide',
     description: [
-      { text: 'Add user sign ups and logins', strong: true },
-      { text: ', securing your data with Row Level Security.' },
-    ],
-  },
-  {
-    id: 'functions',
-    title: 'Edge Functions',
-    icon: FunctionsIcon,
-    visual: 'functions',
-    href: '#functions',
-    description: [
-      { text: 'Easily write custom code ' },
-      { text: 'without deploying or scaling servers.', strong: true },
+      { text: 'A ' },
+      { text: 'repository-specific guide', strong: true },
+      { text: ' that helps developers understand codebases and follow a structured learning sequence.' },
     ],
   },
   {
-    id: 'storage',
-    title: 'Storage',
-    icon: StorageIcon,
-    visual: 'storage',
-    href: '#storage',
+    id: 'six-week-pathway',
+    title: 'Six-Week Contributor Pathway',
+    icon: PathwayIcon,
+    visual: 'pathway',
+    href: '#six-week-pathway',
     description: [
-      { text: 'Store, organize, and serve ' },
-      { text: 'large files', strong: true },
-      { text: ', from videos to images.' },
+      { text: 'A ' },
+      { text: 'guided journey', strong: true },
+      { text: ' from learning open-source fundamentals to preparing for real contributions.' },
     ],
   },
   {
-    id: 'realtime',
-    title: 'Realtime',
-    icon: RealtimeIcon,
-    visual: 'realtime',
-    href: '#realtime',
+    id: 'fork-simulation',
+    title: 'Fork Simulation Environment',
+    icon: ForkSimulationIcon,
+    visual: 'forkSimulation',
+    href: '#fork-simulation',
     description: [
-      { text: 'Build multiplayer experiences', strong: true },
-      { text: ' with real-time data synchronization.' },
+      { text: 'Practice on a ' },
+      { text: 'simulated fork of a real project', strong: true },
+      { text: ', learning workflows and solving issues in a safe environment.' },
     ],
   },
   {
-    id: 'vector',
-    title: 'Vector',
-    icon: VectorIcon,
-    visual: 'vector',
-    href: '#vector',
+    id: 'culture-norms',
+    title: 'Open-Source Culture & Norms',
+    icon: CultureNormsIcon,
+    visual: 'cultureNorms',
+    href: '#culture-norms',
     description: [
-      { text: 'Integrate your favorite ML-models to ' },
-      { text: 'store, index and search vector embeddings.', strong: true },
+      { text: 'Learn ' },
+      { text: 'project conventions & guidelines', strong: true },
+      { text: ', communication, and maintainer expectations.' },
     ],
   },
   {
-    id: 'data-apis',
-    title: 'Data APIs',
-    icon: DataApiIcon,
-    visual: 'dataApi',
-    href: '#data-apis',
+    id: 'mentorship-review',
+    title: 'Mentorship & Code Review',
+    icon: MentorshipIcon,
+    visual: 'mentorshipReview',
+    href: '#mentorship-review',
     description: [
-      { text: 'Instant ready-to-use ' },
-      { text: 'REST APIs.', strong: true },
+      { text: 'Receive guidance and ' },
+      { text: 'feedback from experienced contributors', strong: true },
+      { text: ' to improve technical skills and judgment.' },
+    ],
+  },
+  {
+    id: 'real-world',
+    title: 'Real-World Contribution Pathway',
+    icon: RealWorldIcon,
+    visual: 'realWorld',
+    href: '#real-world',
+    description: [
+      { text: 'Progress toward ' },
+      { text: 'contributing to actual repositories', strong: true },
+      { text: ', submitting pull requests, and building a track record.' },
     ],
   },
 ]
 
-/** Tables wired to endpoints in the Data APIs card illustration. */
-export const DATA_API_TABLES = [
-  'countries',
-  'continents',
-  'cities',
-  'states',
-  'country_codes',
-  'oceans',
-]
-
-/**
- * Cells of the Authentication card's grid, in render order. `null` is a redacted
- * row. The grid is deliberately wider than its card, so the addresses are clipped
- * at both edges exactly as they are in the original.
- */
-export const AUTH_GRID_CELLS: (string | null)[] = [
-  'chris0198@gmail.com',
-  'alex16019',
+/** Cells of the Culture & Norms card's grid (Authentication style). */
+export const CULTURE_GRID_CELLS: (string | null)[] = [
+  'feat: initial-rfc',
+  'Signed-off-by: dev',
   null,
   null,
-  'jordan4567@gmail.com',
-  'mememaster04',
+  'conventional-commits',
+  'maintainer-approved',
 ]
 
-/** Model providers listed under the Vector card illustration. */
-export const VECTOR_PROVIDERS = ['OpenAI', 'Hugging Face']
+/** Milestone phases under the 3D Pathway illustration (Vector style). */
+export const PATHWAY_PHASES = ['Week 1–2: Foundations', 'Week 3–4: Fork Sim & Norms', 'Week 5–6: Sovereign PR']
+
+/** Repositories listed under the Real-World Contribution illustration (Data APIs style). */
+export const REAL_WORLD_REPOS = [
+  { name: 'fedimint', pr: '1048' },
+  { name: 'bitcoin', pr: '2890' },
+  { name: 'lightning', pr: '412' },
+  { name: 'rust-lang', pr: '8501' },
+]

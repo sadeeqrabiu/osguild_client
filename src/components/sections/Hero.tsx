@@ -7,9 +7,9 @@ export function Hero() {
       <div className="hero__inner">
         <div className="hero__copy">
           <h1 className="display hero__headline">
-            Build in a weekend
+            Build your confidence
             <br />
-            <span className="display__muted">Scale to millions</span>
+            <span className="display__muted">Become a Builder in Open Source</span>
           </h1>
 
           <div className="hero__actions">
@@ -21,8 +21,8 @@ export function Hero() {
         </div>
 
         <p className="lead hero__lead">
-          Start your project with a Postgres database. Add Authentication, Data APIs, Edge
-          Functions, Realtime Data, Storage, and Vector embeddings.
+          Access frontier models, learn through real-world simulations,
+          and get mentorship to build your confidence and contribute to open source.
         </p>
       </div>
     </section>

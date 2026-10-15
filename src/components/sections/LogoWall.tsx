@@ -8,7 +8,7 @@ export function LogoWall() {
     <section className="logo-wall">
       <div className="shell">
         <Reveal>
-          <p className="logo-wall__label">Trusted by fast-growing companies worldwide</p>
+          <p className="logo-wall__label">Trusted and supported by</p>
         </Reveal>
       </div>
 

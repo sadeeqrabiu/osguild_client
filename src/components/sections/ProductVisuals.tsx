@@ -1,33 +1,33 @@
 import type { ReactElement } from 'react'
 import {
-  AUTH_GRID_CELLS,
-  DATA_API_TABLES,
-  VECTOR_PROVIDERS,
+  CULTURE_GRID_CELLS,
+  PATHWAY_PHASES,
+  REAL_WORLD_REPOS,
   type ProductVisual as ProductVisualId,
 } from '../../data/products'
 import './ProductVisuals.css'
 
 /*
- * The illustration inside each bento card.
+ * Minimalist illustrations for the OSGuild bento cards.
  *
- * Every one is drawn in markup rather than shipped as an image, so they follow
- * the active theme, stay sharp at any density and reflow with the card. They are
- * decorative: the card's heading and body carry the meaning.
+ * Each card carries exactly ONE clean, iconic, abstract illustration in pure vector/markup,
+ * strictly matching the minimalist aesthetic of Supabase's original design.
  */
 
-function DatabaseVisual() {
+/* 1. Frontier Model Access (Postgres-style Stacked Rotated Frames) ---------- */
+function FrontierModelsVisual() {
   return (
-    <div className="visual visual--database" aria-hidden="true">
-      {/* Offset frames behind the mark, as in the original's stacked-card motif. */}
+    <div className="visual visual--frontier" aria-hidden="true">
       <span className="visual__frame visual__frame--back" />
       <span className="visual__frame visual__frame--mid" />
       <span className="visual__frame">
-        <svg viewBox="0 0 160 160" className="visual__elephant">
-          <g fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M104 52c-16-16-46-14-60 4-10 13-10 32 1 45 4 5 9 8 14 10v24c0 12 10 21 22 21s22-9 22-21v-9" />
-            <path d="M64 62c-9-7-21-5-26 5" />
-            <path d="M103 97c9-4 15-13 15-24" />
-            <circle cx="80" cy="76" r="3.5" fill="currentColor" stroke="none" />
+        <svg viewBox="0 0 160 160" className="visual__mark">
+          <g fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+            {/* Geometric neural crystal / frontier model core */}
+            <polygon points="80,24 132,60 132,100 80,136 28,100 28,60" />
+            <polygon points="80,50 108,70 108,90 80,110 52,90 52,70" />
+            <path d="M80 24v26M132 60l-24 10M132 100l-24-10M80 136v-26M28 100l24-10M28 60l24 10" />
+            <circle cx="80" cy="80" r="4.5" fill="currentColor" stroke="none" />
           </g>
         </svg>
       </span>
@@ -35,30 +35,13 @@ function DatabaseVisual() {
   )
 }
 
-function AuthVisual() {
+/* 2. MCP Codebase Guide (Edge Functions-style Terminal + Wireframe Globe) -- */
+function McpGuideVisual() {
   return (
-    <div className="visual visual--auth" aria-hidden="true">
-      <div className="auth-grid">
-        {AUTH_GRID_CELLS.map((cell, index) => (
-          <div
-            // Index keys: the cells are fixed content, and redacted rows have no text to key on.
-            key={index}
-            className={cell ? 'auth-grid__cell' : 'auth-grid__cell auth-grid__cell--masked'}
-          >
-            {cell}
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function FunctionsVisual() {
-  return (
-    <div className="visual visual--functions" aria-hidden="true">
+    <div className="visual visual--mcp" aria-hidden="true">
       <div className="visual__terminal">
-        <span className="visual__prompt">$</span> supabase{' '}
-        <span className="visual__command">functions serve</span>
+        <span className="visual__prompt">$</span> osguild{' '}
+        <span className="visual__command">mcp guide</span>
       </div>
 
       <svg viewBox="0 0 220 180" className="visual__globe">
@@ -68,7 +51,7 @@ function FunctionsVisual() {
           <ellipse cx="110" cy="105" rx="58" ry="78" />
           <path d="M32 105h156M44 62h132M44 148h132" />
         </g>
-        {/* Deployment edges fanning out from one region. */}
+        {/* Codebase context edges fanning out to repository subsystems */}
         <g fill="none" stroke="currentColor" strokeWidth="1">
           <path d="M150 88 110 118 68 140" />
           <path d="M110 118 96 160" />
@@ -84,58 +67,86 @@ function FunctionsVisual() {
   )
 }
 
-/** File kinds across the storage grid, row by row, in the order the original uses. */
-const STORAGE_TILES = [
-  'image', 'image', 'image', 'image', 'image',
-  'doc', 'doc', 'doc', 'doc', 'doc',
-  'video', 'video', 'video', 'video', 'video',
-]
-
-function StorageVisual() {
+/* 3. Six-Week Contributor Pathway (Vector-style Isometric 3D Cube) --------- */
+function SixWeekPathwayVisual() {
   return (
-    <div className="visual visual--storage" aria-hidden="true">
-      <div className="storage-grid">
-        {STORAGE_TILES.map((kind, index) => (
-          <span className="storage-grid__tile" key={index}>
-            <FileGlyph kind={kind} />
-          </span>
+    <div className="visual visual--pathway" aria-hidden="true">
+      <svg viewBox="0 0 220 170" className="visual__cube">
+        <g fill="none" stroke="currentColor" strokeWidth="0.9">
+          <path d="M110 28 178 62v66l-68 34-68-34V62z" />
+          <path d="M42 62l68 34 68-34M110 96v66" />
+        </g>
+        {/* 6 milestone coordinates across the 3D pathway */}
+        <g fill="currentColor">
+          <circle cx="78" cy="62" r="2.8" />
+          <circle cx="142" cy="56" r="2.2" />
+          <circle cx="110" cy="96" r="3" />
+          <circle cx="82" cy="120" r="2.4" />
+          <circle cx="138" cy="116" r="2.8" />
+          <circle cx="110" cy="154" r="3.4" />
+        </g>
+      </svg>
+
+      <ul className="vector__providers">
+        {PATHWAY_PHASES.map((phase) => (
+          <li key={phase}>
+            <span className="vector__dot" />
+            {phase}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+/* 4. Fork Simulation Environment (Blueprint Grid + Clean Git Branch) ------- */
+function ForkSimulationVisual() {
+  return (
+    <div className="visual visual--fork" aria-hidden="true">
+      <div className="visual__terminal">
+        <span className="visual__prompt">$</span> git{' '}
+        <span className="visual__command">fork --simulate</span>
+      </div>
+
+      <svg viewBox="0 0 220 120" className="visual__fork-tree">
+        {/* Upstream main track */}
+        <line x1="20" y1="36" x2="200" y2="36" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 3" />
+        <circle cx="50" cy="36" r="3" fill="currentColor" />
+        <circle cx="100" cy="36" r="3" fill="currentColor" />
+        <circle cx="170" cy="36" r="3" fill="currentColor" />
+
+        {/* Branch curve into sandbox fork */}
+        <path d="M50 36 C80 36, 75 86, 110 86 L190 86" fill="none" stroke="currentColor" strokeWidth="1.6" />
+        <circle cx="110" cy="86" r="4" fill="currentColor" />
+        <circle cx="150" cy="86" r="3.5" fill="currentColor" />
+        <circle cx="185" cy="86" r="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      </svg>
+    </div>
+  )
+}
+
+/* 5. Open-Source Culture & Norms (Authentication-style Over-width Grid) ---- */
+function CultureNormsVisual() {
+  return (
+    <div className="visual visual--culture" aria-hidden="true">
+      <div className="auth-grid">
+        {CULTURE_GRID_CELLS.map((cell, index) => (
+          <div
+            key={index}
+            className={cell ? 'auth-grid__cell' : 'auth-grid__cell auth-grid__cell--masked'}
+          >
+            {cell}
+          </div>
         ))}
       </div>
     </div>
   )
 }
 
-function FileGlyph({ kind }: { kind: string }) {
-  if (kind === 'image') {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-        <rect x="3.5" y="5" width="17" height="14" rx="2.5" />
-        <circle cx="9" cy="10" r="1.5" />
-        <path d="m4.5 17 4.5-4.5 4 4 2.5-2.5 4 4" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    )
-  }
-
-  if (kind === 'video') {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-        <rect x="2.5" y="6" width="14" height="12" rx="2.5" />
-        <path d="m16.5 13 5 3V8l-5 3z" strokeLinejoin="round" />
-      </svg>
-    )
-  }
-
+/* 6. Mentorship & Code Review (Realtime-style Blueprint + Bubble + Cursors) - */
+function MentorshipReviewVisual() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-      <path d="M13.5 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z" strokeLinejoin="round" />
-      <path d="M13.5 3.5V9H19" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function RealtimeVisual() {
-  return (
-    <div className="visual visual--realtime" aria-hidden="true">
+    <div className="visual visual--mentorship" aria-hidden="true">
       <span className="realtime__bubble">
         <i />
         <i />
@@ -152,52 +163,20 @@ function RealtimeVisual() {
   )
 }
 
-function VectorVisual() {
+/* 7. Real-World Contribution Pathway (Data APIs-style Dashed Wire Rows) ---- */
+function RealWorldVisual() {
   return (
-    <div className="visual visual--vector" aria-hidden="true">
-      <svg viewBox="0 0 220 170" className="visual__cube">
-        <g fill="none" stroke="currentColor" strokeWidth="0.9">
-          <path d="M110 28 178 62v66l-68 34-68-34V62z" />
-          <path d="M42 62l68 34 68-34M110 96v66" />
-        </g>
-        {/* Embeddings scattered through the volume. */}
-        <g fill="currentColor">
-          <circle cx="86" cy="66" r="2.6" />
-          <circle cx="132" cy="54" r="2" />
-          <circle cx="152" cy="88" r="2.8" />
-          <circle cx="98" cy="104" r="2.2" />
-          <circle cx="124" cy="120" r="3" />
-          <circle cx="66" cy="96" r="1.8" />
-          <circle cx="166" cy="118" r="1.8" />
-          <circle cx="78" cy="132" r="2.2" />
-        </g>
-      </svg>
-
-      <ul className="vector__providers">
-        {VECTOR_PROVIDERS.map((provider) => (
-          <li key={provider}>
-            <span className="vector__dot" />
-            {provider}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-function DataApiVisual() {
-  return (
-    <div className="visual visual--data-api" aria-hidden="true">
+    <div className="visual visual--real-world" aria-hidden="true">
       <ul className="data-api__rows">
-        {DATA_API_TABLES.map((table) => (
-          <li className="data-api__row" key={table}>
+        {REAL_WORLD_REPOS.map((item) => (
+          <li className="data-api__row" key={item.name}>
             <span className="data-api__table">
-              <TableGlyph />
-              {table}
+              <GitPullGlyph />
+              {item.name}
             </span>
             <span className="data-api__wire" />
             <span className="data-api__endpoint">
-              .../v1/<b>{table}</b>
+              .../pull/<b>{item.pr}</b>
             </span>
           </li>
         ))}
@@ -206,23 +185,28 @@ function DataApiVisual() {
   )
 }
 
-function TableGlyph() {
+function GitPullGlyph() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="data-api__glyph">
-      <rect x="4" y="4" width="16" height="16" rx="2" />
-      <path d="M4 9.5h16M4 15h16M9.5 9.5V20" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="data-api__glyph">
+      <circle cx="6" cy="6" r="2.5" />
+      <circle cx="6" cy="18" r="2.5" />
+      <path d="M6 8.5v7" />
+      <circle cx="18" cy="18" r="2.5" />
+      <path d="M6 12a6 6 0 0 1 6-6h2" />
+      <path d="m15 3 3 3-3 3" />
+      <path d="M18 15.5V11" />
     </svg>
   )
 }
 
 const VISUALS: Record<ProductVisualId, () => ReactElement> = {
-  database: DatabaseVisual,
-  auth: AuthVisual,
-  functions: FunctionsVisual,
-  storage: StorageVisual,
-  realtime: RealtimeVisual,
-  vector: VectorVisual,
-  dataApi: DataApiVisual,
+  frontierModels: FrontierModelsVisual,
+  mcpGuide: McpGuideVisual,
+  pathway: SixWeekPathwayVisual,
+  forkSimulation: ForkSimulationVisual,
+  cultureNorms: CultureNormsVisual,
+  mentorshipReview: MentorshipReviewVisual,
+  realWorld: RealWorldVisual,
 }
 
 export function ProductVisual({ visual }: { visual: ProductVisualId }) {

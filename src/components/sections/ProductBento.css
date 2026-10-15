@@ -2,23 +2,23 @@
   padding-bottom: var(--space-9);
 }
 
-.bento__row {
+.bento__grid {
   display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: var(--space-4);
-}
-
-.bento__row--wide {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.bento__row--narrow {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-top: var(--space-4);
 }
 
 /* The Reveal wrapper is the grid item, so it has to stretch like one. */
 .bento__cell {
   display: flex;
+}
+
+.bento__cell--wide {
+  grid-column: span 4;
+}
+
+.bento__cell--narrow {
+  grid-column: span 3;
 }
 
 .product-card {
@@ -98,19 +98,81 @@
 }
 
 @media (max-width: 1100px) {
-  .bento__row--wide,
-  .bento__row--narrow {
+  .bento__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bento__cell--wide,
+  .bento__cell--narrow {
+    grid-column: span 1;
+  }
+
+  .bento__cell:last-child {
+    grid-column: span 2;
   }
 }
 
+/* Mobile: Card stacking, sticky placement & 3D flip-back swap on scroll */
 @media (max-width: 720px) {
-  .bento__row--wide,
-  .bento__row--narrow {
-    grid-template-columns: minmax(0, 1fr);
+  .bento__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    perspective: 1200px;
+    padding-bottom: var(--space-8);
   }
 
+  .bento__cell {
+    position: sticky;
+    top: calc(76px + calc(var(--card-index, 0) * 10px));
+    z-index: calc(var(--card-index, 0) + 1);
+    transform-origin: center top;
+    margin-bottom: clamp(70px, 20vh, 130px);
+  }
+
+  .bento__cell:last-child {
+    margin-bottom: var(--space-6);
+  }
+
+  /* Keep reveal clean so it doesn't fight with sticky positioning */
+  .bento__cell.reveal[data-visible] {
+    transform: none;
+  }
+
+  /* 3D Flip Back: Card tilts backwards smoothly into perspective and dims as next card swaps in. No harsh shadow. */
   .product-card {
-    min-height: 0;
+    min-height: 380px;
+    box-shadow: none;
+    transform-origin: 50% 8%;
+    transform: perspective(1000px)
+      rotateX(calc(var(--flip-progress, 0) * 20deg))
+      scale(calc(1 - var(--flip-progress, 0) * 0.08))
+      translateY(calc(var(--flip-progress, 0) * -20px));
+    opacity: calc(1 - var(--flip-progress, 0) * 0.45);
+    filter: brightness(calc(1 - var(--flip-progress, 0) * 0.3));
+    transition:
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color var(--dur-base) var(--ease-out);
+    will-change: transform, opacity, filter;
+  }
+
+  .product-card:hover {
+    box-shadow: none;
+    transform: perspective(1000px)
+      rotateX(calc(var(--flip-progress, 0) * 20deg))
+      scale(calc(1 - var(--flip-progress, 0) * 0.08))
+      translateY(calc(var(--flip-progress, 0) * -20px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @media (max-width: 720px) {
+    .product-card {
+      transform: none !important;
+      opacity: 1 !important;
+      filter: none !important;
+    }
   }
 }
