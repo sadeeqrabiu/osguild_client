@@ -1,191 +1,159 @@
-import { useId, useState } from 'react'
-import {
-  RLS_POLICIES,
-  SIDEBAR_ITEMS,
-  SQL_RESULT_COLUMNS,
-  SQL_RESULT_ROWS,
-  SQL_SAMPLE,
-  TABLE_COLUMNS,
-} from '../../data/dashboard'
+import { useEffect, useState } from 'react'
 import { Reveal } from '../primitives/Reveal'
-import { TabPanel, Tabs, type TabItem } from '../primitives/Tabs'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
 import './DashboardShowcase.css'
 
-const TABS: TabItem[] = [
-  { id: 'table-editor', label: 'Table Editor' },
-  { id: 'sql-editor', label: 'SQL Editor' },
-  { id: 'rls-policies', label: 'RLS Policies' },
-]
+// Load all workshop images from assets/workshop
+const imageModules = import.meta.glob<{ default: string }>(
+  '../../assets/workshop/*.jpg',
+  { eager: true }
+)
 
-/**
- * The original presents this section as a static screenshot. Rebuilding it in
- * markup means it follows the active theme, stays sharp at any pixel density and
- * reflows on narrow screens — none of which an image would do.
- */
+const WORKSHOP_IMAGES: string[] = Object.keys(imageModules)
+  .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }))
+  .map((path) => imageModules[path].default)
+
 export function DashboardShowcase() {
-  const baseId = useId()
-  const [activeTab, setActiveTab] = useState(TABS[0].id)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(true)
+  const prefersReduced = useReducedMotion()
+
+  useEffect(() => {
+    if (!isPlaying || prefersReduced || WORKSHOP_IMAGES.length === 0) return
+
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % WORKSHOP_IMAGES.length)
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [isPlaying, prefersReduced])
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % WORKSHOP_IMAGES.length)
+  }
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + WORKSHOP_IMAGES.length) % WORKSHOP_IMAGES.length)
+  }
 
   return (
     <section className="dashboard section" id="dashboard">
       <div className="shell">
         <Reveal>
           <h2 className="heading-2 dashboard__headline">
-            Stay productive and manage your app
+            Experience our in-person cohorts
             <br />
-            <span className="display__muted">without leaving the dashboard</span>
+            <span className="display__muted">learning, building, and contributing together</span>
           </h2>
         </Reveal>
 
         <Reveal delay={80}>
-          <Tabs
-            className="dashboard__tabs"
-            items={TABS}
-            activeId={activeTab}
-            onChange={setActiveTab}
-            label="Dashboard features"
-            baseId={baseId}
-          />
-        </Reveal>
-
-        <Reveal delay={140}>
-          <TabPanel baseId={baseId} tabId={activeTab} className="dashboard__panel">
-            <div className="dash">
-              <div className="dash__chrome" aria-hidden="true">
+          <div className="workshop-showcase">
+            {/* Window Chrome Header */}
+            <div className="workshop-showcase__chrome">
+              <div className="workshop-showcase__dots" aria-hidden="true">
                 <span />
                 <span />
                 <span />
               </div>
 
-              <div className="dash__body">
-                <aside className="dash__sidebar" aria-hidden="true">
-                  <p className="dash__sidebar-label">Tables</p>
-                  <ul>
-                    {SIDEBAR_ITEMS.map((item, index) => (
-                      <li key={item} data-active={index === 0 || undefined}>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </aside>
+              <div className="workshop-showcase__title">
+                <span>OsGuild Workshop Reel</span>
+              </div>
 
-                <div className="dash__content">
-                  {activeTab === 'table-editor' && <TableEditor />}
-                  {activeTab === 'sql-editor' && <SqlEditor />}
-                  {activeTab === 'rls-policies' && <RlsPolicies />}
-                </div>
+              <div className="workshop-showcase__controls">
+                <button
+                  type="button"
+                  className="workshop-showcase__btn"
+                  onClick={handlePrev}
+                  aria-label="Previous image"
+                >
+                  ◀
+                </button>
+                <button
+                  type="button"
+                  className="workshop-showcase__btn"
+                  onClick={() => setIsPlaying((prev) => !prev)}
+                  aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
+                >
+                  {isPlaying ? '❚❚' : '▶'}
+                </button>
+                <button
+                  type="button"
+                  className="workshop-showcase__btn"
+                  onClick={handleNext}
+                  aria-label="Next image"
+                >
+                  ▶
+                </button>
               </div>
             </div>
-          </TabPanel>
+
+            {/* Slides Viewport */}
+            <div
+              className="workshop-showcase__stage"
+              onClick={handleNext}
+              role="region"
+              aria-label="Workshop image carousel"
+            >
+              {WORKSHOP_IMAGES.map((imgSrc, index) => {
+                const isActive = index === currentIndex
+                return (
+                  <img
+                    key={imgSrc}
+                    src={imgSrc}
+                    alt={`OsGuild workshop photo ${index + 1}`}
+                    loading={index < 4 ? 'eager' : 'lazy'}
+                    className={`workshop-showcase__slide ${isActive ? 'workshop-showcase__slide--active' : ''
+                      }`}
+                  />
+                )
+              })}
+
+              {/* Scrim Overlay */}
+              <div className="workshop-showcase__scrim" aria-hidden="true" />
+
+              {/* Overlay Footer Bar */}
+              <div className="workshop-showcase__footer">
+                <div className="workshop-showcase__badge">
+                  <span>OsGuild Workshop</span>
+                </div>
+
+                <div className="workshop-showcase__dots-nav">
+                  {WORKSHOP_IMAGES.map((_, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      aria-label={`Jump to photo ${index + 1}`}
+                      className={`workshop-showcase__dot-btn ${index === currentIndex ? 'workshop-showcase__dot-btn--active' : ''
+                        }`}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setCurrentIndex(index)
+                      }}
+                    />
+                  ))}
+                </div>
+
+                <div className="workshop-showcase__counter">
+                  {String(currentIndex + 1).padStart(2, '0')} /{' '}
+                  {String(WORKSHOP_IMAGES.length).padStart(2, '0')}
+                </div>
+              </div>
+
+              {/* 1s Progress bar */}
+              {isPlaying && !prefersReduced && (
+                <div className="workshop-showcase__progress" aria-hidden="true">
+                  <div
+                    key={currentIndex}
+                    className="workshop-showcase__progress-bar workshop-showcase__progress-bar--running"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
         </Reveal>
       </div>
     </section>
-  )
-}
-
-function TableEditor() {
-  return (
-    <div className="editor">
-      <header className="editor__head">
-        <h3 className="editor__title">Columns</h3>
-        <div className="editor__head-actions">
-          <span className="chip">About data types</span>
-          <span className="chip">Import data via spreadsheet</span>
-        </div>
-      </header>
-
-      <div className="columns" role="table" aria-label="Table columns">
-        <div className="columns__row columns__row--head" role="row">
-          <span role="columnheader">Name</span>
-          <span role="columnheader">Type</span>
-          <span role="columnheader">Default Value</span>
-          <span role="columnheader">Primary</span>
-          <span role="columnheader" aria-label="Constraints" />
-        </div>
-
-        {TABLE_COLUMNS.map((column) => (
-          <div className="columns__row" role="row" key={column.name}>
-            <span className="field" role="cell">
-              {column.name}
-            </span>
-            <span className="field field--select" role="cell">
-              {column.type}
-            </span>
-            <span className="field field--muted" role="cell">
-              {column.defaultValue}
-            </span>
-            <span className="columns__primary" role="cell">
-              <i className="checkbox" data-checked={column.isPrimary || undefined} />
-            </span>
-            <span className="columns__meta" role="cell">
-              {column.badge && <i className="badge">{column.badge}</i>}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      <button type="button" className="editor__add">
-        Add column
-      </button>
-    </div>
-  )
-}
-
-function SqlEditor() {
-  return (
-    <div className="editor">
-      <header className="editor__head">
-        <h3 className="editor__title">New query</h3>
-        <div className="editor__head-actions">
-          <span className="chip">Format</span>
-          <span className="chip chip--solid">Run</span>
-        </div>
-      </header>
-
-      <pre className="sql">{SQL_SAMPLE}</pre>
-
-      <table className="results">
-        <thead>
-          <tr>
-            {SQL_RESULT_COLUMNS.map((column) => (
-              <th key={column} scope="col">
-                {column}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {SQL_RESULT_ROWS.map(([code, cities]) => (
-            <tr key={code}>
-              <td>{code}</td>
-              <td>{cities}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
-function RlsPolicies() {
-  return (
-    <div className="editor">
-      <header className="editor__head">
-        <h3 className="editor__title">Policies</h3>
-        <div className="editor__head-actions">
-          <span className="chip chip--solid">New policy</span>
-        </div>
-      </header>
-
-      <ul className="policies">
-        {RLS_POLICIES.map((policy) => (
-          <li className="policies__item" key={policy.name}>
-            <span className="policies__name">{policy.name}</span>
-            <span className="policies__target">{policy.target}</span>
-            <span className="policies__command">{policy.command}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
   )
 }

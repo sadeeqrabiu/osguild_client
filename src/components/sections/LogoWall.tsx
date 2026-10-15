@@ -1,6 +1,6 @@
-import { COMPANIES, type Company } from '../../data/companies'
-import { GitHubIcon } from '../icons'
 import { Reveal } from '../primitives/Reveal'
+import btrustWhite from '../../assets/Btrust-white.png'
+import btrustBlack from '../../assets/Btrust-black.png'
 import './LogoWall.css'
 
 export function LogoWall() {
@@ -13,30 +13,28 @@ export function LogoWall() {
       </div>
 
       <div className="logo-wall__band">
-        <ul className="logo-wall__grid">
-          {COMPANIES.map((company) => (
-            <li key={company.id}>
-              <Wordmark company={company} />
-            </li>
-          ))}
-        </ul>
+        <div className="logo-wall__container">
+          <a
+            href="https://www.btrust.tech"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="logo-wall__link"
+            aria-label="Btrust"
+          >
+            <img
+              src={btrustWhite}
+              alt="Btrust"
+              className="logo-wall__logo logo-wall__logo--white"
+            />
+            <img
+              src={btrustBlack}
+              alt="Btrust"
+              className="logo-wall__logo logo-wall__logo--black"
+            />
+          </a>
+        </div>
       </div>
     </section>
   )
 }
 
-function Wordmark({ company }: { company: Company }) {
-  return (
-    <span
-      className="wordmark"
-      style={{
-        fontWeight: company.weight,
-        letterSpacing: company.tracking,
-        fontStyle: company.italic ? 'italic' : undefined,
-      }}
-    >
-      {company.withGitHubMark && <GitHubIcon className="wordmark__mark" />}
-      {company.label}
-    </span>
-  )
-}
