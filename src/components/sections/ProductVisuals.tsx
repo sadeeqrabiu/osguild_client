@@ -14,21 +14,27 @@ import './ProductVisuals.css'
  * strictly matching the minimalist aesthetic of Supabase's original design.
  */
 
-/* 1. Frontier Model Access (Postgres-style Stacked Rotated Frames) ---------- */
+/* 1. Frontier Model Access (Claude Code Stacked Rotated Frames) ---------- */
 function FrontierModelsVisual() {
   return (
     <div className="visual visual--frontier" aria-hidden="true">
       <span className="visual__frame visual__frame--back" />
       <span className="visual__frame visual__frame--mid" />
       <span className="visual__frame">
-        <svg viewBox="0 0 160 160" className="visual__mark">
-          <g fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
-            {/* Geometric neural crystal / frontier model core */}
-            <polygon points="80,24 132,60 132,100 80,136 28,100 28,60" />
-            <polygon points="80,50 108,70 108,90 80,110 52,90 52,70" />
-            <path d="M80 24v26M132 60l-24 10M132 100l-24-10M80 136v-26M28 100l24-10M28 60l24 10" />
-            <circle cx="80" cy="80" r="4.5" fill="currentColor" stroke="none" />
-          </g>
+        <svg
+          viewBox="-1 3 26 19"
+          className="visual__mark visual__mark--claude"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="0.6"
+          strokeLinecap="round"
+          strokeLinejoin="miter"
+        >
+          {/* Claude Code logo - pure borderline outline matching design system */}
+          <path
+            d="M20.998 10.949H24v3.102h-3v3.028h-1.487V20H18v-2.921h-1.487V20H15v-2.921H9V20H7.488v-2.921H6V20H4.487v-2.921H3V14.05H0V10.95h3V5h17.998v5.949zM6 10.949h1.488V8.102H6v2.847zm10.51 0H18V8.102h-1.49v2.847z"
+          />
         </svg>
       </span>
     </div>

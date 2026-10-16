@@ -56,6 +56,23 @@
   opacity: 0.85;
 }
 
+.visual__mark--claude {
+  width: 82px;
+  height: 82px;
+  color: var(--text-tertiary);
+  opacity: 0.85;
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    opacity var(--dur-base) var(--ease-out);
+}
+
+.product-card:hover .visual__mark--claude {
+  transform: scale(1.06);
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
 /* 2. MCP Codebase Guide (Edge Functions Globe) ---------------------------- */
 
 .visual--mcp {
